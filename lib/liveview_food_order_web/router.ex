@@ -17,6 +17,7 @@ defmodule LiveviewFoodOrderWeb.Router do
   scope "/", LiveviewFoodOrderWeb do
     pipe_through :browser
 
+    live "/first", FirstLive, :index
     get "/", PageController, :index
   end
 
