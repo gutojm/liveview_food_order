@@ -18,7 +18,6 @@ defmodule LiveviewFoodOrder.MixProject do
         "coveralls.post": :test,
         "coveralls.html": :test
       ]
-
     ]
   end
 
