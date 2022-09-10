@@ -4,7 +4,7 @@ import Config
 config :liveview_food_order, LiveviewFoodOrder.Repo,
   username: "postgres",
   password: "postgres",
-  hostname: "localhost",
+  hostname: "db",
   database: "liveview_food_order_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
