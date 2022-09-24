@@ -1,8 +1,10 @@
 defmodule LiveviewFoodOrderWeb.First.IncComponent do
+  @moduledoc false
+
   use LiveviewFoodOrderWeb, :live_component
 
   def update(%{inc: value}, socket) do
-    {:ok, socket |> update(:value, fn v -> v + value end) }
+    {:ok, socket |> update(:value, fn v -> v + value end)}
   end
 
   def update(assign, socket) do
