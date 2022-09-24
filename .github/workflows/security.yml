@@ -25,5 +25,3 @@ jobs:
         run: mix deps.get
       - name: ===> Security
         run: mix sobelow --config
-
-
