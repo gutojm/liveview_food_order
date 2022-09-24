@@ -99,7 +99,7 @@ config :git_hooks,
     pre_push: [
       verbose: false,
       tasks: [
-        {:mix_task, "coveralls.html" },
+        {:mix_task, "coveralls.html"},
         {:mix_task, :sobelow, ["--config"]},
         {:mix_task, :dialyzer},
         {:cmd, "echo 'success!'"}
