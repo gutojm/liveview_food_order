@@ -26,7 +26,15 @@ config :liveview_food_order, LiveviewFoodOrderWeb.Endpoint,
   secret_key_base: "i5R1R3t44cnx9ffzdyx7Z3xwKDSIApydJ42xoOnFJAybFcxQ35OTTy6Hz1Rq3fip",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    npx: [
+      "tailwindcss",
+      "--input=css/app.css",
+      "--output=../priv/static/assets/app.css",
+      "--postcss",
+      "--watch",
+      cd: Path.expand("../assets", __DIR__)
+    ]
   ]
 
 # ## SSL Support
@@ -73,3 +81,28 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :git_hooks,
+  auto_install: true,
+  verbose: true,
+  branches: [
+    whitelist: ["feature-.*"],
+    blacklist: ["master"]
+  ],
+  hooks: [
+    pre_commit: [
+      tasks: [
+        {:mix_task, :format, ["--check-formatted"]},
+        {:mix_task, :credo, ["--strict"]}
+      ]
+    ],
+    pre_push: [
+      verbose: false,
+      tasks: [
+        {:mix_task, :test},
+        {:mix_task, :sobelow, ["--config"]},
+        {:mix_task, :dialyzer},
+        {:cmd, "echo 'success!'"}
+      ]
+    ]
+  ]
