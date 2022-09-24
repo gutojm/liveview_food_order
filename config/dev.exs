@@ -81,3 +81,28 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :git_hooks,
+  auto_install: true,
+  verbose: true,
+  branches: [
+    whitelist: ["feature-.*"],
+    blacklist: ["master"]
+  ],
+  hooks: [
+    pre_commit: [
+      tasks: [
+        {:mix_task, :format, ["--check-formatted"]},
+        {:mix_task, :credo, ["--strict"]}
+      ]
+    ],
+    pre_push: [
+      verbose: false,
+      tasks: [
+        {:mix_task, "coveralls.html" },
+        {:mix_task, :sobelow, ["--config"]},
+        {:mix_task, :dialyzer},
+        {:cmd, "echo 'success!'"}
+      ]
+    ]
+  ]
