@@ -26,7 +26,15 @@ config :liveview_food_order, LiveviewFoodOrderWeb.Endpoint,
   secret_key_base: "i5R1R3t44cnx9ffzdyx7Z3xwKDSIApydJ42xoOnFJAybFcxQ35OTTy6Hz1Rq3fip",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    npx: [
+      "tailwindcss",
+      "--input=css/app.css",
+      "--output=../priv/static/assets/app.css",
+      "--postcss",
+      "--watch",
+      cd: Path.expand("../assets", __DIR__)
+    ]
   ]
 
 # ## SSL Support
