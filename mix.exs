@@ -60,7 +60,8 @@ defmodule LiveviewFoodOrder.MixProject do
       {:excoveralls, "~> 0.14.6", only: :test},
       {:sobelow, "~> 0.11.1", only: :dev},
       {:dialyxir, "~> 1.2", only: [:dev, :test], runtime: false},
-      {:git_hooks, "~> 0.7.3"}
+      {:git_hooks, "~> 0.7.3"},
+      {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false}
     ]
   end
 
